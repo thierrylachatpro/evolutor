@@ -1,77 +1,65 @@
-let resultoDelPlayia = document.querySelector("#result");
+let result = document.querySelector("#result");
 
-let moins10EltPlayia = document.querySelector(".taux10 .moins");
-let plus10EltPlayia = document.querySelector(".taux10 .plus");
-let moins25EltPlayia = document.querySelector(".taux25 .moins");
-let plus25EltPlayia = document.querySelector(".taux25 .plus");
-let formoDelPlayia = document.querySelector("#formSubmit");
+let moins10Elt = document.querySelector(".taux10 .moins");
+let plus10Elt = document.querySelector(".taux10 .plus");
+let moins25Elt = document.querySelector(".taux25 .moins");
+let plus25Elt = document.querySelector(".taux25 .plus");
+let form = document.querySelector("#formSubmit");
 
-let ContentoDelPlayia =
-  document.querySelector("#content") || document.createElement("div");
+let calcIt = () => {
+  result.innerHTML = "&nbsp;";
+  let nb_1 = document.getElementById("firstValue").value.replace(",", ".");
+  let nb_2 = document.getElementById("secondValue").value.replace(",", ".");
+  if (nb_1 && nb_2) {
+    let calc = ((nb_2 - nb_1) / nb_1) * 100;
 
-let calcItPlayia = () => {
-  resultoDelPlayia.innerHTML = "&nbsp;";
-  let numeroUnoPlayia = document
-    .getElementById("firstValue")
-    .value.replace(",", ".");
-  let numeroDosPlayia = document
-    .getElementById("secondValue")
-    .value.replace(",", ".");
-  if (numeroUnoPlayia && numeroDosPlayia) {
-    let calculoPlayia =
-      ((numeroDosPlayia - numeroUnoPlayia) / numeroUnoPlayia) * 100;
-
-    switch (calculoPlayia) {
+    switch (calc) {
       case Infinity:
-        resultoDelPlayia.innerHTML = `<span class="${
-          calculoPlayia > 0 ? "success" : "danger"
-        }" >${0 + "%"}<\/span>`;
+        result.innerHTML = `<span class="${calc > 0 ? "success" : "danger"}" >${
+          0 + "%"
+        }</span>`;
         break;
       default:
-        resultoDelPlayia.innerHTML = `<span class="${
-          calculoPlayia > 0 ? "success" : "danger"
-        }" >${calculoPlayia.toFixed(2) + "%"}<\/span>`;
+        result.innerHTML = `<span class="${calc > 0 ? "success" : "danger"}" >${
+          calc.toFixed(2) + "%"
+        }</span>`;
         break;
     }
   }
 
-  ContentoDelPlayia.innerHTML = "";
-  for (let iterPlayia = 1; iterPlayia <= 35; iterPlayia += 2) {
-    ContentoDelPlayia.innerHTML +=
+  content.innerHTML = "";
+  for (i = 1; i <= 35; i += 2) {
+    content.innerHTML +=
       `
         <div class="w-100 hideIt">
             <div class="taux w-100" id="elt` +
-      iterPlayia +
+      i +
       `">
                 <p class="">` +
-      iterPlayia +
+      i +
       `% : </p>
                 <p class="moins danger"></p>
                 <p class="plus success"></p>
             </div>
         </div>`;
-    let moinsEltPlayia = document.querySelector(
-      "#elt" + iterPlayia + " .moins"
-    );
-    let plusEltPlayia = document.querySelector("#elt" + iterPlayia + " .plus");
+    let moinsElt = document.querySelector("#elt" + i + " .moins");
+    let plusElt = document.querySelector("#elt" + i + " .plus");
 
-    moinsEltPlayia.innerHTML = "";
-    plusEltPlayia.innerHTML = "";
-    let moinsPlayia =
-      Number(numeroUnoPlayia) - (numeroUnoPlayia * iterPlayia) / 100;
-    let plusPlayia =
-      Number(numeroUnoPlayia) + (numeroUnoPlayia * iterPlayia) / 100;
-    if (numeroUnoPlayia) {
-      moinsEltPlayia.innerHTML = `${moinsPlayia.toFixed(2)}€`;
-      plusEltPlayia.innerHTML = `${plusPlayia.toFixed(2)}€`;
+    moinsElt.innerHTML = "";
+    plusElt.innerHTML = "";
+    let moins = Number(nb_1) - (nb_1 * i) / 100;
+    let plus = Number(nb_1) + (nb_1 * i) / 100;
+    if (nb_1) {
+      moinsElt.innerHTML = `${moins.toFixed(2)}€`;
+      plusElt.innerHTML = `${plus.toFixed(2)}€`;
     }
   }
 };
 
-let fieldsPlayia = document.querySelectorAll(".value");
+let fields = document.querySelectorAll(".value");
 
-fieldsPlayia.forEach((valuePlayia) => {
-  valuePlayia.addEventListener("keyup", function (e) {
-    calcItPlayia();
+fields.forEach((value) => {
+  value.addEventListener("keyup", function (e) {
+    calcIt();
   });
 });
