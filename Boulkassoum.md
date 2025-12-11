@@ -1,0 +1,1 @@
+Bonjour Monsieur Lachat vous savez que tout etre humain est mortel , vous etes humain donc vous etes mortel !
